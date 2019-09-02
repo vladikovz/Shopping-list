@@ -172,5 +172,5 @@ class ShoppingList extends Component {
         );
     }
 }
-//новый комент
+
 export default ShoppingList;
