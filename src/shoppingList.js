@@ -12,8 +12,7 @@ class ShoppingList extends Component {
             sortState: true,
             sortButton: 'Сортировать',
             searchState: false,
-            
-            
+                       
         };
 
         this.addItem = this.addItem.bind(this);
@@ -173,5 +172,5 @@ class ShoppingList extends Component {
         );
     }
 }
-
+//новый комент
 export default ShoppingList;
