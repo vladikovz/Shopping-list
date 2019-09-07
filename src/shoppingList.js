@@ -2,6 +2,17 @@ import React, { Component } from "react";
 import ShowItems from "./ShowItems";
 import "./ShoppingList.css";
 import Search from './Search'
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
+
+
+
+// const grid = 8;
+
+// const getListStyle = isDraggingOver => ({
+// background: isDraggingOver ? "lightblue" : "lightgrey",
+// padding: grid,
+// width: 250
+// });
 
 class ShoppingList extends Component {
     constructor (props) {
@@ -22,6 +33,7 @@ class ShoppingList extends Component {
         this.setSearched = this.setSearched.bind(this);
         this.showFindedItems = this.showFindedItems.bind(this);
         this.setDefault = this.setDefault.bind(this);
+        this.onDragEnd = this.onDragEnd.bind(this);
     }
 
     addItem(e) {
@@ -55,10 +67,7 @@ class ShoppingList extends Component {
                 return {
                     items: prevState.items.concat(newItem)
                 };
-            });
-
-            
-            
+            });     
         }
 
         this._inputElement.value = "";
@@ -66,6 +75,7 @@ class ShoppingList extends Component {
         e.preventDefault();
     }
     deleteItem(key) {
+        console.log("deleted:", key)
         var filteredItems = this.state.items.filter(function (item) {
             return (item.key !== key)
         });
@@ -134,7 +144,7 @@ class ShoppingList extends Component {
         //console.log("findedIndex: ", this.state.items[index].findedIndex);
 }
 
-   showFindedItems(index) {
+   showFindedItems() {
         return(
             <ShowItems finishedItems={this.state.items}
                         delete={this.deleteItem}
@@ -142,33 +152,75 @@ class ShoppingList extends Component {
             />
         )
 }
+//_______________________________
+
+
+
+    onDragEnd(result) {
+        if (!result.destination) {
+        return;
+        }
+//console.log("index: ", result.destination.index)
+
+        const reorder = (list, startIndex, endIndex) => {
+            const result = Array.from(list);
+            const [removed] = result.splice(startIndex, 1);
+            result.splice(endIndex, 0, removed);
+          
+            return result;
+          };
+
+        const items = reorder(
+            this.state.items,
+            result.source.index,
+            result.destination.index
+        );
+
+        this.setState({
+            items
+        });
+    }
 
     render() {
         return (
             <div className="shoppingListMain">
                 <div>
-                    <Search 
-                        finishedItems={this.state.items}
-                        setSearched={this.setSearched}
-                        />
-                </div> 
-                <div className="header">
-                    <form onSubmit={this.addItem}>
-                        <input 
-                            ref = {(input) => this._inputElement = input}
-                            placeholder="Введите что купить, цена" 
-                        />
-                        <button type="submit">Добавить</button>
-                    </form>
-                    
-                    <button onClick={this.handleSort}>{this.state.sortButton}</button>
-                </div>
-                <div>
-                    {this.showFindedItems()}
-                </div>
 
+                </div>
+                    <DragDropContext onDragEnd={this.onDragEnd}> 
+                        <Droppable droppableId="droppable">
+                            {(provided) => (
+                                <div
+                                    {...provided.droppableProps}
+                                    ref={provided.innerRef}
+                                    //style={getListStyle(snapshot.isDraggingOver)}
+                                >
+                                <div className="header">
+                                    <form onSubmit={this.addItem}>
+                                        <input 
+                                            className="inputForAdd"
+                                            ref = {(input) => this._inputElement = input}
+                                            placeholder="Введите что купить, цена" 
+                                        />
+                                        <button className="add" type="submit">Добавить</button>
+                                    </form>
+                                    <div className="menu">
+                                        <Search 
+                                            finishedItems={this.state.items}
+                                            setSearched={this.setSearched}
+                                        />
+                                        <button className="sort" onClick={this.handleSort}>{this.state.sortButton}</button>
+                                    </div>
+                                </div>      
+                                <div>
+                                    {this.showFindedItems()}
+                                </div>
+                                    {provided.placeholder}
+                                </div>
+                            )}
+                        </Droppable>
+                    </DragDropContext> 
             </div>
-
         );
     }
 }

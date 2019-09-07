@@ -37,6 +37,7 @@ class Search extends Component {
             <div className="search">
                 <form onSubmit={this.searchByItems}>
                     <input 
+                        className="inputForSearch"
                         ref = {(input) => this.inputElement = input}
                     />
                     <button type="submit">Найти</button>

@@ -1,116 +1,163 @@
-.shoppingListMain .header input {
-    padding: 10px;
-    font-size: 20px;
-    border: 2px solid #fff;
+.shoppingListMain .header .inputForAdd {
+    padding: 7px;
+    font-size: 22px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    
+    background-color: rgb(243, 242, 239);
+    border: 2px solid rgb(243, 239, 239);
     width: 600px;
 }
-
-.shoppingListMain .header button {
-    padding: 10px;
-    font-size: 20px;
-    margin: 10px;
-    background-color: blue;
-    color: #fff;
-    border: 2px solid blue;
+.shoppingListMain .header .inputForAdd:hover {
+    background-color: #fff;
+    border: 2px solid #fff;
 }
 
-
+.shoppingListMain .header button{
+    padding: 7px;
+    font-size: 22px;
+    background-color: rgb(65, 86, 204);
+    color: #fff;
+    border: 2px solid rgb(65, 86, 204);
+}
 
 .shoppingListMain .header button:hover {
-    background-color: aquamarine;
-    border: 2px solid aquamarine;
+    background-color: rgb(7, 38, 212);
+    border: 2px solid rgb(7, 38, 212);
     cursor: pointer;
     border-radius: 5px;
 }
 
 .shoppingListMain .theList .list {
-    color: #333;
-    background-color: rgb(226, 200, 200);
-    padding: 15px;
-    margin-bottom: 15px;
+    background-color: rgb(95, 156, 108);
+    padding: 20px;
+    margin-bottom: 10px;
     border-radius: 5px;
     list-style: none;
-
-    transition: background-color .2s ease-out;
+ 
+    /* transition: background-color .2s ease-out;  */
 }
 
-.shoppingListMain .theList .listFinded
-{
+.shoppingListMain .theList .listFinded {
     color: #333;
-    background-color: rgb(0, 255, 34);
-    padding: 15px;
-    margin-bottom: 15px;
+    background-color: rgb(56, 253, 82);
+    padding: 20px;
+    margin-bottom: 10px;
     border-radius: 5px;
     list-style: none;
 
     transition: background-color .2s ease-out;
 }
 .shoppingListMain .theList li:hover {
-    background-color: pink;
+    background-color: rgb(182, 196, 102);
     cursor: pointer;
 }
+
+
 
 ul.theList {
     padding: 0;
 }
-
-li .nameOfProduct {
-    color: red;
-    font-size: 28px;
-    
+li .ListContent {
+    float: left;
+    width: 530px;
 }
 
-li .costOfProduct {
-    color: rgb(245, 98, 98);
+li .ListContent .nameOfProduct {
+    font-family: 'Chilanka', cursive;
+    color: rgb(240, 204, 0);
+    font-size: 28px; 
+}
+li .ListContent .nameOfProduct:hover{
+    color: #000;
+    font-size: 32px;
+}
+
+li .ListContent .costOfProduct {
+    font-family: 'Chilanka', cursive;
+    color: rgb(255, 255, 255);
     font-size: 12px;
-
 }
 
-.deleteProduct {
-    padding: 10px;
+li .ListContent .costOfProduct:hover {
+    color: #000;
     font-size: 16px;
-    position: absolute;
-    left: 670px;
-    margin-top: -11px;
-    
-    background-color: blue;
-    color: #fff;
-    border: 1px solid blue;
-    border-radius: 5px;
 }
+.buttonDelete {
 
-.EditProduct {
-    padding: 10px;
-    font-size: 16px;
-    position: absolute;
-    left: 520px;
-    margin-top: -11px;
-    
-    background-color: blue;
-    color: #fff;
-    border: 1px solid blue;
-    border-radius: 5px;
-    
-}
-
-.search {
-
-    position: absolute;
-    top: 20px;
-    left: 10px;
-}
-
-.search input {
     padding: 5px;
-    font-size: 20px;
-    border: 2px solid #fff;
+    font-size: 12px;
+    position: relative;
+    margin-left: 10px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 5px;
+}
+.buttonEdit{
+
+    padding: 5px;
+    font-size: 12px;
+    position: relative;
+    margin-left: 10px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 5px;
+}
+.buttonDelete:hover{
+    color: #fff;
+    background-color: rgb(236, 23, 23);
+    border: 1px solid rgb(236, 23, 23);
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.buttonEdit:hover{
+    color: #fff;
+    background-color: rgb(218, 190, 65);
+    border: 1px solid rgb(218, 190, 65);
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.shoppingListMain .header .sort {
+    font-size: 16px;
+    height: 43px;
     width: 150px;
+    background-color: rgb(218, 190, 65);
+    border: 2px solid rgb(218, 190, 65);
+}
+.shoppingListMain .header .sort:hover {
+    background-color: rgb(245, 200, 0);
+    border: 2px solid rgb(245, 200, 0);
+    cursor: pointer;
+    border-radius: 5px;
+}
+.search {
+    float: left; 
+    position: relative;  
+}
+
+.search .inputForSearch {
+    
+    padding: 3px;
+    font-size: 16px;
+    background-color: rgb(209, 231, 203);
+    border: 2px solid rgb(209, 231, 203);
+    width: 483px;
+}
+
+.search .inputForSearch:hover{
+    background-color: #fff;
+    border: 2px solid #fff;
 }
 
 .search button {
     padding: 5px;
-    font-size: 20px;
-    margin: 10px;
+    font-size: 16px;
+    margin-left: 10px;
+    margin-right: 10px;
     background-color: blue;
     color: #fff;
     border: 2px solid blue;

@@ -1,7 +1,11 @@
 body{
     padding: 50px;
-    background-color: bisque;
+    /* background-color: rgb(155, 238, 134); */
+    background: #ffffff url("img/1.jpg") no-repeat top center;
     font-family: sans-serif;
+    min-height:100%;
+    /* background-size:cover; */
+
 }
 
 #container{

@@ -1,38 +1,62 @@
 import React, { Component } from 'react';
-import FlipMove from "react-flip-move";
 import "./ShoppingList.css";
-//import ShoppingList from "./shoppingList";
+import { Draggable } from "react-beautiful-dnd";
 
 
+
+// const getItemStyle = (isDragging, draggableStyle) => ({
+//   // change background colour if dragging
+//   backgroundColor: isDragging ? "lightgreen" : "grey",
+
+//   // styles we need to apply on draggables
+//   ...draggableStyle
+// });
 
 class ShowItems extends Component {
     constructor(props) {
         super(props)
-
         this.createItems = this.createItems.bind(this);
         this.createItemsForSearched = this.createItemsForSearched.bind(this);
         this.edit = this.edit.bind(this);
         //this.choice = this.choice.bind(this);
     }
 
-    createItems(item) {
+    createItems(item, index) {
         let cost
         if(item.cost == null) {
             cost = '  Стоимость не указана'
         }else {
             cost = '  Стоимость: ' + item.cost
         }
-            return (
-                <li className = 'list' key={item.key}>
-                    <span className = 'nameOfProduct'>{item.product}</span>
-                    <span className = 'costOfProduct'>{cost}</span>
-                    <button className="deleteProduct" onClick={() => this.props.delete(item.key)}>Удалить</button>
-                    <button className="EditProduct" onClick={() => this.edit(item.product, item.key, item.cost)}>Редактировать</button>
-                </li>
-            );
+        return (
+                <Draggable key={item.key} draggableId={item.key} index={index}>
+                {(provided) => (
+                    
+                    <li className = 'list' key={item.key} 
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        // style={getItemStyle(
+                        //     snapshot.isDragging,
+                        //     provided.draggableProps.style
+                        //     )}
+                    >
+                        <span className = "ListContent">
+                            <span className = 'nameOfProduct'>{item.product}</span>
+                            <span className = 'costOfProduct'>{cost}</span>
+                        </span>
+    
+                        <button className="buttonDelete" onClick={() => this.props.delete(item.key)}>Удалить</button>
+                        <button className="buttonEdit" onClick={() => this.edit(item.product, item.key, item.cost)}>Редактировать</button>
+    
+                    </li>
+                    
+                )}
+                </Draggable>              
+        );
     }
 
-    createItemsForSearched(item) {
+    createItemsForSearched(item,index) {
         let cost
         if(item.cost == null) {
             cost = '  Стоимость не указана'
@@ -40,15 +64,25 @@ class ShowItems extends Component {
             cost = '  Стоимость: ' + item.cost
         }
 
-        //console.log("Индекс", this.props.finishedItems.findedIndex)
-            return (
-                <li className = 'listFinded' key={item.key}>
-                    <span className = 'nameOfProduct'>{item.product}</span>
-                    <span className = 'costOfProduct'>{cost}</span>
-                    <button className="deleteProduct" onClick={() => this.props.delete(item.key)}>Удалить</button>
-                    <button className="EditProduct" onClick={() => this.edit(item.product, item.key, item.cost)}>Редактировать</button>
-                </li>
-            );
+        return (
+            <Draggable key={item.key} draggableId={item.key} index={index}>
+                {(provided) => (
+                    <li className = 'listFinded' key={item.key}
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                    >
+                        <span className = "ListContent">
+                            <span className = 'nameOfProduct'>{item.product}</span>
+                            <span className = 'costOfProduct'>{cost}</span>
+                        </span>
+    
+                        <button className="buttonDelete" onClick={() => this.props.delete(item.key)}>Удалить</button>
+                        <button className="buttonEdit" onClick={() => this.edit(item.product, item.key, item.cost)}>Редактировать</button>
+    
+                    </li>
+                )}
+                </Draggable>
+        );
     }
 
 
@@ -62,15 +96,15 @@ class ShowItems extends Component {
     }
 
     render() {
-        var listItems = this.props.finishedItems.map(item => (item.findedIndex) ? this.createItemsForSearched(item) : this.createItems(item));
+        var listItems = this.props.finishedItems.map((item, index) => (item.findedIndex) ? this.createItemsForSearched(item, index) : this.createItems(item, index));
 
         //console.log("Отрисовка этого массива: ", this.props.finishedItems)
-    
+
         return (
             <ul className="theList">
-                <FlipMove duration={250} easing="ease-out">
+
                     {listItems}
-                </FlipMove>
+
             </ul>
         );
     }
