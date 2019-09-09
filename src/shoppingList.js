@@ -4,16 +4,6 @@ import "./ShoppingList.css";
 import Search from './Search'
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
-
-
-// const grid = 8;
-
-// const getListStyle = isDraggingOver => ({
-// background: isDraggingOver ? "lightblue" : "lightgrey",
-// padding: grid,
-// width: 250
-// });
-
 class ShoppingList extends Component {
     constructor (props) {
         super(props);
@@ -85,7 +75,6 @@ class ShoppingList extends Component {
         });
     }
 
-    //may be I don't need key?
     saveSet(product, key, cost) {
         
         let index = this.state.items.map(el => el.key).indexOf(key)
@@ -94,7 +83,7 @@ class ShoppingList extends Component {
         item.product = product
         item.cost = cost
         const items = this.state.items.concat()
-        items[key] = item  // Why key but not index?
+        items[index] = item 
         this.setState({
             items: items
         })
@@ -115,14 +104,11 @@ class ShoppingList extends Component {
    }
 
     setSearched(index) {
-        //this.state.items[index].
-        console.log("index: ", index);
-        // this.items[index].setState({finded: true})
-        // this.setState({indexSearch: index}) 
+        //console.log("index: ", index);
         let item = this.state.items[index];
         item.findedIndex = true;
         const items = this.state.items.concat();
-        items[index] = item  // Why key but not index?
+        items[index] = item
         this.setState({
             items: items
         })
@@ -136,7 +122,7 @@ class ShoppingList extends Component {
         let item = this.state.items[index];
         item.findedIndex = false;
         const items = this.state.items.concat();
-        items[index] = item  // Why key but not index?
+        items[index] = item
         this.setState({
             items: items
         })
@@ -158,9 +144,9 @@ class ShoppingList extends Component {
 
     onDragEnd(result) {
         if (!result.destination) {
-        return;
+            return;
         }
-//console.log("index: ", result.destination.index)
+        //console.log("index: ", result.destination.index)
 
         const reorder = (list, startIndex, endIndex) => {
             const result = Array.from(list);
@@ -184,32 +170,28 @@ class ShoppingList extends Component {
     render() {
         return (
             <div className="shoppingListMain">
-                <div>
-
-                </div>
                     <DragDropContext onDragEnd={this.onDragEnd}> 
                         <Droppable droppableId="droppable">
                             {(provided) => (
                                 <div
                                     {...provided.droppableProps}
                                     ref={provided.innerRef}
-                                    //style={getListStyle(snapshot.isDraggingOver)}
                                 >
                                 <div className="header">
                                     <form onSubmit={this.addItem}>
                                         <input 
                                             className="inputForAdd"
                                             ref = {(input) => this._inputElement = input}
-                                            placeholder="Введите что купить, цена" 
+                                            placeholder="Введите что купить, цена..." 
                                         />
                                         <button className="add" type="submit">Добавить</button>
                                     </form>
                                     <div className="menu">
+                                        <button className="sort" onClick={this.handleSort}>{this.state.sortButton}</button>
                                         <Search 
                                             finishedItems={this.state.items}
                                             setSearched={this.setSearched}
                                         />
-                                        <button className="sort" onClick={this.handleSort}>{this.state.sortButton}</button>
                                     </div>
                                 </div>      
                                 <div>

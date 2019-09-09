@@ -1,25 +1,32 @@
 import React, { Component } from 'react';
 import "./ShoppingList.css";
 import { Draggable } from "react-beautiful-dnd";
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent'
+import DialogActions from '@material-ui/core/DialogActions';
+import Button from '@material-ui/core/Button';
 
 
-
-// const getItemStyle = (isDragging, draggableStyle) => ({
-//   // change background colour if dragging
-//   backgroundColor: isDragging ? "lightgreen" : "grey",
-
-//   // styles we need to apply on draggables
-//   ...draggableStyle
-// });
 
 class ShowItems extends Component {
     constructor(props) {
         super(props)
+
+        this.state = {
+            isEditWindow: false,
+            label: "",
+            product: "",
+            productEdited: "",
+        };
         this.createItems = this.createItems.bind(this);
         this.createItemsForSearched = this.createItemsForSearched.bind(this);
-        this.edit = this.edit.bind(this);
-        //this.choice = this.choice.bind(this);
+        //this.edit = this.edit.bind(this);
+        this.handleSave = this.handleSave.bind(this);
+
     }
+    
 
     createItems(item, index) {
         let cost
@@ -46,8 +53,8 @@ class ShowItems extends Component {
                             <span className = 'costOfProduct'>{cost}</span>
                         </span>
     
-                        <button className="buttonDelete" onClick={() => this.props.delete(item.key)}>Удалить</button>
-                        <button className="buttonEdit" onClick={() => this.edit(item.product, item.key, item.cost)}>Редактировать</button>
+                        <Button variant="outlined" className="buttonDelete" onClick={() => this.props.delete(item.key)}>Удалить</Button>
+                        <Button variant="outlined" className="buttonEdit" onClick={() => this.handleEdit(item.product, item.key, item.cost)}>Редактировать</Button>
     
                     </li>
                     
@@ -77,22 +84,52 @@ class ShowItems extends Component {
                         </span>
     
                         <button className="buttonDelete" onClick={() => this.props.delete(item.key)}>Удалить</button>
-                        <button className="buttonEdit" onClick={() => this.edit(item.product, item.key, item.cost)}>Редактировать</button>
+                        <button className="buttonEdit" onClick={() => this.handleEdit(item.product, item.key, item.cost)}>Редактировать</button>
     
                     </li>
                 )}
                 </Draggable>
         );
     }
+    handleEdit(product, key, cost) {
+        this.setState({product})
+        this.setState({key})
+        this.setState({cost})
+        this.setState({isEditWindow: true})
+    }
 
+    // windowEdit(product, key, cost){
+    //     //let result;
+    //     //let resultCost;
+    //     this.setState({keyOfEditedItem: key})
+    //     return (
+    //         <DialogTitle>
+    //             Введите новый продукт!
+    //         </DialogTitle>
+    //     );     
+    // }
 
+    // edit() {
+        
 
-    edit(product, key, cost) {
-        let result = prompt('Введите новый продукт:', product);
-        let resultCost = prompt('Введите новую цену:', cost);
-        if (result !== null) {
+    //     // let result = prompt('Введите новый продукт:', product);
+    //     // let resultCost = prompt('Введите новую цену:', cost); 
+    //     if (this.state.result !== null) {
+    //         this.props.saveSet(this.state.result, this.state.keyOfEditedItem, this.state.resultCost)
+    //     }
+    // }
+
+    handleSave() {
+        let result = this.state.product
+        let key = this.state.key
+        let resultCost = this.state.cost
+        if (result !== '') {
             this.props.saveSet(result, key, resultCost)
+            this.setState({isEditWindow: false})
+        }else{
+            this.setState({isEditWindow: true}) 
         }
+        
     }
 
     render() {
@@ -101,11 +138,49 @@ class ShowItems extends Component {
         //console.log("Отрисовка этого массива: ", this.props.finishedItems)
 
         return (
+            <div>
             <ul className="theList">
-
                     {listItems}
-
             </ul>
+                        
+            <Dialog
+                open={this.state.isEditWindow}
+                onClose={()=> this.setState({isEditWindow: false})}
+                //TransitionComponent={Transition}
+                keepMounted
+            >
+                <DialogTitle>
+                    Внесите изменения в товар:
+                </DialogTitle>
+                <DialogContent>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        label="Название"
+                        type="text"
+                        fullWidth
+                        value={this.state.product}
+                        onChange={(e) => this.setState({product: e.target.value})}
+                    />
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        label="Цена"
+                        type="number"
+                        fullWidth
+                        value={this.state.cost}
+                        onChange={(e) => this.setState({cost: e.target.value})}
+                    />
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.handleSave} color="primary">
+                            Сохранить
+                        </Button>
+                    </DialogActions>
+            </Dialog>
+            </div>
         );
     }
 }

@@ -6,7 +6,7 @@
     
     background-color: rgb(243, 242, 239);
     border: 2px solid rgb(243, 239, 239);
-    width: 600px;
+    width: 700px;
 }
 .shoppingListMain .header .inputForAdd:hover {
     background-color: #fff;
@@ -29,7 +29,7 @@
 }
 
 .shoppingListMain .theList .list {
-    background-color: rgb(95, 156, 108);
+    background-color: rgb(111, 190, 128);
     padding: 20px;
     margin-bottom: 10px;
     border-radius: 5px;
@@ -46,30 +46,27 @@
     border-radius: 5px;
     list-style: none;
 
-    transition: background-color .2s ease-out;
+    /* transition: background-color .2s ease-out; */
 }
 .shoppingListMain .theList li:hover {
-    background-color: rgb(182, 196, 102);
+    background-color: rgb(116, 116, 116);
     cursor: pointer;
 }
-
-
 
 ul.theList {
     padding: 0;
 }
 li .ListContent {
     float: left;
-    width: 530px;
+    width: 547px;
 }
 
 li .ListContent .nameOfProduct {
     font-family: 'Chilanka', cursive;
-    color: rgb(240, 204, 0);
+    color: rgb(243, 239, 7);
     font-size: 28px; 
 }
 li .ListContent .nameOfProduct:hover{
-    color: #000;
     font-size: 32px;
 }
 
@@ -80,22 +77,19 @@ li .ListContent .costOfProduct {
 }
 
 li .ListContent .costOfProduct:hover {
-    color: #000;
     font-size: 16px;
 }
-.buttonDelete {
-
+/* .buttonDelete {
     padding: 5px;
     font-size: 12px;
     position: relative;
-    margin-left: 10px;
+    margin-left: 15px;
     background-color: rgb(255, 255, 255);
     color: rgb(0, 0, 0);
     border: 1px solid rgb(255, 255, 255);
     border-radius: 5px;
 }
 .buttonEdit{
-
     padding: 5px;
     font-size: 12px;
     position: relative;
@@ -104,20 +98,19 @@ li .ListContent .costOfProduct:hover {
     color: rgb(0, 0, 0);
     border: 1px solid rgb(255, 255, 255);
     border-radius: 5px;
-}
+} */
+
 .buttonDelete:hover{
     color: #fff;
-    background-color: rgb(236, 23, 23);
+    /* background-color: rgb(236, 23, 23); */
     border: 1px solid rgb(236, 23, 23);
-    cursor: pointer;
     border-radius: 5px;
 }
 
 .buttonEdit:hover{
     color: #fff;
-    background-color: rgb(218, 190, 65);
-    border: 1px solid rgb(218, 190, 65);
-    cursor: pointer;
+    /* background-color: rgb(218, 190, 65); */
+    border: 1px solid rgb(218, 190, 65); 
     border-radius: 5px;
 }
 
@@ -140,12 +133,11 @@ li .ListContent .costOfProduct:hover {
 }
 
 .search .inputForSearch {
-    
     padding: 3px;
     font-size: 16px;
     background-color: rgb(209, 231, 203);
     border: 2px solid rgb(209, 231, 203);
-    width: 483px;
+    width: 583px;
 }
 
 .search .inputForSearch:hover{
