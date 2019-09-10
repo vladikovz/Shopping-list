@@ -83,8 +83,8 @@ class ShowItems extends Component {
                             <span className = 'costOfProduct'>{cost}</span>
                         </span>
     
-                        <button className="buttonDelete" onClick={() => this.props.delete(item.key)}>Удалить</button>
-                        <button className="buttonEdit" onClick={() => this.handleEdit(item.product, item.key, item.cost)}>Редактировать</button>
+                        <Button variant="outlined" className="buttonDelete" onClick={() => this.props.delete(item.key)}>Удалить</Button>
+                        <Button variant="outlined" className="buttonEdit" onClick={() => this.handleEdit(item.product, item.key, item.cost)}>Редактировать</Button>
     
                     </li>
                 )}
